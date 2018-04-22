@@ -1,19 +1,6 @@
-FROM ubuntu:xenial
+FROM alpine:latest
 
-RUN apt-get update -q && \
-    apt-get install -qy openvpn iptables socat curl wget python2.7 && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-# get easyrsa 3.0 (2.2 in repos)
-RUN mkdir -p /etc/easyrsa
-RUN cd /tmp && \
-    wget https://github.com/OpenVPN/easy-rsa/releases/download/v3.0.4/EasyRSA-3.0.4.tgz && \
-    tar xf EasyRSA-3.0.4.tgz && \
-    cd EasyRSA-3.0.4 && \
-    cp -r easyrsa openssl-easyrsa.cnf x509-types /etc/easyrsa && \
-    cd /tmp && \
-    rm -r EasyRSA-3.0.4 EasyRSA-3.0.4.tgz
+RUN apk add --update bash easy-rsa openvpn iptables socat curl wget openvpn python2
 
 ADD ./bin /usr/local/sbin
 VOLUME /etc/openvpn
