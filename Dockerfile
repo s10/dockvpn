@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-RUN apk add --update bash easy-rsa openvpn iptables socat curl wget openvpn python2
+RUN apk --no-cache add --update bash easy-rsa openvpn iptables socat curl wget openvpn python2
 
 RUN ln -s /usr/share/easy-rsa /etc/easyrsa
 
