@@ -59,6 +59,7 @@ key /etc/openvpn/server.key
 crl-verify /etc/openvpn/crl.pem
 tls-auth /etc/openvpn/ta.key 0
 push "redirect-gateway def1 bypass-dhcp"
+push "dhcp-option DNS 8.8.8.8"
 push "dhcp-option DNS 8.8.4.4"
 comp-lzo
 keepalive 50 300
@@ -88,6 +89,7 @@ key /etc/openvpn/server.key
 crl-verify /etc/openvpn/crl.pem
 tls-auth /etc/openvpn/ta.key 0
 push "redirect-gateway def1 bypass-dhcp"
+push "dhcp-option DNS 8.8.8.8"
 push "dhcp-option DNS 8.8.4.4"
 comp-lzo
 keepalive 50 300
