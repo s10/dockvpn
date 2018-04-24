@@ -4,27 +4,15 @@
 
 ### Start container with OpenVPN from localy built image
 
-Parameters may be set via environment variables or edited in `Dockerfile`. All `-e` parameters may be ommited.
-
-```bash
-git clone https://github.com/s10/dockvpn.git
-cd dockvpn
-docker build -t dockvpn .
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-docker run -ti -d -v $DIR/configs:/etc/openvpn --net=host --privileged --restart unless-stopped \
---name dockvpn -e PORT_TCP=1195 -e PORT_UDP=1195 -e PORT_CONTROL=8000 -e CONTROL_USERNAME=username123 \
--e CONTROL_PASSWORD=password456 -e EXTERNAL_ADDRESS="yourdomain.com" dockvpn
-```
+Docker image could be build from the git repository https://github.com/s10/dockvpn
 
 ### Start container with OpenVPN from Docker Hub image
 
 ```bash
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-docker run -ti -d -v $DIR/configs:/etc/openvpn --net=host --privileged --restart unless-stopped \
---name dockvpn -e PORT_TCP=1195 -e PORT_UDP=1195 -e PORT_CONTROL=8000 -e CONTROL_USERNAME=username123 \
--e CONTROL_PASSWORD=password456 -e EXTERNAL_ADDRESS="yourdomain.com" esten/dockvpn
+docker run -ti -d -v $HOME/configs:/etc/openvpn --cap-add=NET_ADMIN --restart unless-stopped \
+--name dockvpn -e PORT_TCP=1194 -e PORT_UDP=1194 -e PORT_CONTROL=8000 \
+-e CONTROL_USERNAME=username123 -e CONTROL_PASSWORD=password456 -e EXTERNAL_ADDRESS="yourdomain.com" \
+-p 1194:1194/udp -p 1194:1194/tcp -p 8000:8000/tcp esten/dockvpn
 ```
 
 Config files will be available at the web interface. It's URL will be shown after the container start. Web interface uses HTTPS with the self-signed certificate. At this interface you can generate multiple OpenVPN profiles for different clients.
